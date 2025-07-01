@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "477369932112",
+    "project_id": "billionascent-43873",
+    "storage_bucket": "billionascent-43873.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477369932112:android:ec51d3a90c3f39ab763455",
+        "android_client_info": {
+          "package_name": "com.example.martfury"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWrY0t4_yLlaRXaFsvB7VVk5rajb4III4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
