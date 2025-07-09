@@ -270,29 +270,15 @@ class ProductService extends BaseService {
         endpoint += '?${queryParameters.join('&')}';
       }
 
-      print('🔍 Fetching products from: $endpoint'); // Debug log
       final response = await get(endpoint);
-      
-      print('📦 API Response data type: ${response['data'].runtimeType}'); // Debug log
-      print('📦 API Response sample: ${response['data']?.take(1)}'); // Debug log first item
-      
       return {
         'data': List<Product>.from(
-          response['data'].map((json) {
-            try {
-              return Product.fromJson(json);
-            } catch (e) {
-              print('❌ Error parsing product: $e');
-              print('🔍 Product JSON: $json');
-              rethrow;
-            }
-          }),
+          response['data'].map((json) => Product.fromJson(json)),
         ),
         'meta': response['meta'],
         'links': response['links'],
       };
     } catch (e) {
-      print('❌ Failed to load products: $e'); // Debug log
       throw Exception('Failed to load products: $e');
     }
   }

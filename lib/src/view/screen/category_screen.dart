@@ -585,109 +585,110 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        if (category.imageWithSizes != null)
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            child: Image.network(
-                                              category.imageWithSizes!.small,
-                                              width: 80,
-                                              height: 80,
-                                              fit: BoxFit.cover,
-                                              errorBuilder:
-                                                  (_, __, ___) => Container(
-                                                    width: 80,
-                                                    height: 80,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          AppColors.getSkeletonColor(
-                                                            context,
-                                                          ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            8,
-                                                          ),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.category,
-                                                      size: 32,
-                                                      color:
-                                                          AppColors.getSecondaryTextColor(
-                                                            context,
-                                                          ),
-                                                    ),
-                                                  ),
-                                            ),
-                                          )
-                                        else
-                                          Container(
-                                            width: 80,
-                                            height: 80,
-                                            decoration: BoxDecoration(
-                                              color: AppColors.getSkeletonColor(
-                                                context,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          if (category.imageWithSizes != null)
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(
+                                                8,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                              child: Image.network(
+                                                category.imageWithSizes!.small,
+                                                width: 60,
+                                                height: 60,
+                                                fit: BoxFit.cover,
+                                                errorBuilder:
+                                                    (_, __, ___) => Container(
+                                                      width: 60,
+                                                      height: 60,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            AppColors.getSkeletonColor(
+                                                              context,
+                                                            ),
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              8,
+                                                            ),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.category,
+                                                        size: 24,
+                                                        color:
+                                                            AppColors.getSecondaryTextColor(
+                                                              context,
+                                                            ),
+                                                      ),
+                                                    ),
+                                              ),
+                                            )
+                                          else
+                                            Container(
+                                              width: 60,
+                                              height: 60,
+                                              decoration: BoxDecoration(
+                                                color: AppColors.getSkeletonColor(
+                                                  context,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Icon(
+                                                Icons.category,
+                                                size: 24,
+                                                color:
+                                                    AppColors.getSecondaryTextColor(
+                                                      context,
+                                                    ),
+                                              ),
                                             ),
-                                            child: Icon(
-                                              Icons.category,
-                                              size: 32,
-                                              color:
-                                                  AppColors.getSecondaryTextColor(
-                                                    context,
-                                                  ),
-                                            ),
-                                          ),
-                                        const SizedBox(height: 8),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8,
-                                          ),
-                                          child: Text(
-                                            category.name,
-                                            style: kAppTextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  AppColors.getPrimaryTextColor(
-                                                    context,
-                                                  ),
-                                            ),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        if (category.isFeatured) ...[
-                                          const SizedBox(height: 4),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 8,
-                                              vertical: 2,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.primary
-                                                  .withAlpha(10),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
+                                          const SizedBox(height: 6),
+                                          Flexible(
                                             child: Text(
-                                              'Featured',
+                                              category.name,
                                               style: kAppTextStyle(
-                                                fontSize: 10,
-                                                color: AppColors.primary,
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w500,
+                                                color:
+                                                    AppColors.getPrimaryTextColor(
+                                                      context,
+                                                    ),
                                               ),
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
+                                          if (category.isFeatured) ...[
+                                            const SizedBox(height: 2),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 6,
+                                                vertical: 1,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.primary
+                                                    .withAlpha(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                              ),
+                                              child: Text(
+                                                'Featured',
+                                                style: kAppTextStyle(
+                                                  fontSize: 8,
+                                                  color: AppColors.primary,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ],
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 );

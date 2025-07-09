@@ -37,6 +37,86 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
+  void _showErrorDialog(String errorDescription, String? failedUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Lỗi tải trang',
+            style: kAppTextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Có lỗi xảy ra khi tải trang thanh toán:',
+                style: kAppTextStyle(
+                  fontSize: 14,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                errorDescription,
+                style: kAppTextStyle(
+                  fontSize: 12,
+                  color: Colors.red,
+                ),
+              ),
+              if (failedUrl != null) ...[
+                const SizedBox(height: 8),
+                Text(
+                  'URL: $failedUrl',
+                  style: kAppTextStyle(
+                    fontSize: 10,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog
+                // Reload WebView
+                if (_controller != null) {
+                  _controller!.reload();
+                }
+              },
+              child: Text(
+                'Thử lại',
+                style: kAppTextStyle(
+                  fontSize: 14,
+                  color: AppColors.primary,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog
+                Navigator.of(context).pop(); // Quay lại trang trước
+              },
+              child: Text(
+                'Quay lại',
+                style: kAppTextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _initializeWebView() async {
     final token = await TokenService.getToken();
     if (!mounted) return;
@@ -48,9 +128,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           // Clear cookies and cache
           ..clearCache()
           ..clearLocalStorage()
+          // Add user agent to help with compatibility
+          ..setUserAgent('BillionascentApp/1.0 (iOS)')
           ..setNavigationDelegate(
             NavigationDelegate(
               onPageStarted: (String url) {
+                debugPrint('WebView started loading: $url');
                 if (mounted) {
                   setState(() {
                     _isLoading = true;
@@ -58,6 +141,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }
               },
               onPageFinished: (String url) {
+                debugPrint('WebView finished loading: $url');
                 if (mounted) {
                   setState(() {
                     _isLoading = false;
@@ -65,6 +149,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }
               },
               onNavigationRequest: (NavigationRequest request) {
+                debugPrint('WebView navigation request: ${request.url}');
                 // Check if URL matches base URL
                 if (request.url == AppConfig.apiBaseUrl ||
                     request.url == '${AppConfig.apiBaseUrl}/' ||
@@ -87,15 +172,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               },
               onWebResourceError: (WebResourceError error) {
                 debugPrint('WebView error: ${error.description}');
+                debugPrint('Error code: ${error.errorCode}');
+                debugPrint('Error type: ${error.errorType}');
+                debugPrint('Failed URL: ${error.url}');
+                
+                // Only show dialog for main frame errors (not sub-resources like images, ads, etc.)
+                if (mounted && error.errorType == WebResourceErrorType.hostLookup ||
+                    error.errorType == WebResourceErrorType.timeout ||
+                    error.errorType == WebResourceErrorType.connect ||
+                    error.errorType == WebResourceErrorType.authentication) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    _showErrorDialog(error.description, error.url);
+                  });
+                }
               },
             ),
-          )
-          ..loadRequest(
-            Uri.parse(
-              '${AppConfig.apiBaseUrl}/api/v1/ecommerce/checkout/cart/${widget.cartId}',
-            ),
-            headers: {'Authorization': 'Bearer $token'},
           );
+
+    // Load the checkout URL
+    final checkoutUrl = '${AppConfig.apiBaseUrl}/api/v1/ecommerce/checkout/cart/${widget.cartId}';
+    debugPrint('Loading checkout URL: $checkoutUrl');
+    
+    controller.loadRequest(
+      Uri.parse(checkoutUrl),
+      headers: {'Authorization': 'Bearer $token','X-API-KEY': AppConfig.apiKey,},
+    );
 
     if (mounted) {
       setState(() {

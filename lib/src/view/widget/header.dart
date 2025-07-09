@@ -60,7 +60,7 @@ class _HeaderState extends State<Header> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: const BoxDecoration(
-        color: AppColors.primary,
+        color: AppColors.primaryAppBar,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10),
@@ -171,6 +171,7 @@ class _HeaderState extends State<Header> {
                   decoration: BoxDecoration(
                     color: AppColors.getSurfaceColor(context),
                     borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.primary, width: 1),
                   ),
                   child: Row(
                     children: [

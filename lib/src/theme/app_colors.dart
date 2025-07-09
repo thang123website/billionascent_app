@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 /// App color constants that adapt to light and dark themes
 class AppColors {
   // Primary brand color (consistent across themes)
-  static const Color primary = Color(0xFFFE7922);
+  static const Color primary = Color(0xFFE6691D);
   static const Color primaryDark = Color(0xFFE6691D);
+  static const Color primaryAppBar = Color(0xFFFFFFFF);
+
 
   // Background colors
   static const Color lightBackground = Color(0xFFFFFFFF);

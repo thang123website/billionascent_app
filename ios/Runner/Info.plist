@@ -49,6 +49,10 @@
 	<string>This app needs access to photo library to update your profile picture</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to camera to update your profile picture</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to microphone for video calls</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs location access for better shopping experience</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -75,5 +79,35 @@
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>billionasc.123websitedev.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>123websitedev.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
