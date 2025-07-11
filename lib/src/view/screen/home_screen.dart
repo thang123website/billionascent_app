@@ -894,10 +894,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                 },
-                child: Image.network(
-                  ads[0].image,
-                  fit: BoxFit.contain,
-                  width: double.infinity,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColors.lightBorder, // màu viền
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      ads[0].image,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -948,12 +960,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 96, // Fixed height for all small ads
                       decoration: BoxDecoration(
                         color: AppColors.getSurfaceColor(context),
+                        border: Border.all(
+                          color: AppColors.lightBorder, // màu viền
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Image.network(
-                        ads[i].image,
-                        fit: BoxFit.cover, // Changed from contain to cover
-                        width: double.infinity,
-                        height: 96,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          ads[i].image,
+                          fit: BoxFit.cover, // Changed from contain to cover
+                          width: double.infinity,
+                          height: 96,
+                        ),
                       ),
                     ),
                   ),
@@ -984,12 +1004,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 96, // Fixed height for all small ads
                         decoration: BoxDecoration(
                           color: AppColors.getSurfaceColor(context),
+                          border: Border.all(
+                            color: AppColors.lightBorder, // màu viền
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Image.network(
-                          ads[i + 1].image,
-                          fit: BoxFit.cover, // Changed from contain to cover
-                          width: double.infinity,
-                          height: 96,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            ads[i + 1].image,
+                            fit: BoxFit.cover, // Changed from contain to cover
+                            width: double.infinity,
+                            height: 96,
+                          ),
                         ),
                       ),
                     ),

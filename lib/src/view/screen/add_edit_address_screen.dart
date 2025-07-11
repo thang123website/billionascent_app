@@ -487,12 +487,13 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
               ),
             ),
             const SizedBox(width: 12),
-            Container(
-              width: 100,
-              height: 16,
-              decoration: BoxDecoration(
-                color: AppColors.getSkeletonColor(context),
-                borderRadius: BorderRadius.circular(4),
+            Expanded(
+              child: Container(
+                height: 16,
+                decoration: BoxDecoration(
+                  color: AppColors.getSkeletonColor(context),
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
             ),
           ],
@@ -888,6 +889,19 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
   }
 
   Widget _buildCountryDropdown() {
+    // Ensure unique country names for dropdown
+    final uniqueCountries = <String, Country>{};
+    for (var country in _countries) {
+      uniqueCountries[country.name] = country;
+    }
+    // If the selected country is not in the list, reset it
+    if (_selectedCountry.isNotEmpty && !uniqueCountries.containsKey(_selectedCountry)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _selectedCountry = uniqueCountries.isNotEmpty ? uniqueCountries.values.first.name : '';
+        });
+      });
+    }
     return DropdownButtonFormField<String>(
       value: _selectedCountry.isEmpty ? null : _selectedCountry,
       decoration: InputDecoration(
@@ -932,25 +946,24 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
         ),
       ),
       isExpanded: true,
-      items:
-          _countries
-              .map(
-                (country) => DropdownMenuItem(
-                  value: country.name,
-                  child: Text(
-                    country.name,
-                    style: kAppTextStyle(
-                      fontSize: 16,
-                      color: AppColors.getPrimaryTextColor(context),
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+      items: uniqueCountries.values
+          .map(
+            (country) => DropdownMenuItem<String>(
+              value: country.name,
+              child: Text(
+                country.name,
+                style: kAppTextStyle(
+                  fontSize: 16,
+                  color: AppColors.getPrimaryTextColor(context),
                 ),
-              )
-              .toList(),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          )
+          .toList(),
       onChanged: (value) {
         setState(() {
-          _selectedCountry = value!;
+          _selectedCountry = value ?? '';
         });
       },
       validator: (value) {

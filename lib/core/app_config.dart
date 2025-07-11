@@ -3,8 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AppConfig {
   static String get apiBaseUrl =>
       dotenv.env['API_BASE_URL'] ?? 'https://billionasc.123websitedev.com';
-  static String get apiKey => dotenv.env['API_KEY'] ?? '1234567890';
-  static String appName = dotenv.env['APP_NAME'] ?? 'MartFury';
+  static String get apiKey => dotenv.env['API_KEY'] ?? 'BUDiDpmVRWhbfTLP1ZpKU0c99ZrMyLxr';
+  static String appName = dotenv.env['APP_NAME'] ?? 'Demo';
   static String appEnv = dotenv.env['APP_ENV'] ?? 'development';
   static String testEmail = dotenv.env['TEST_EMAIL'] ?? 'test@example.com';
   static String testPassword = dotenv.env['TEST_PASSWORD'] ?? 'password123';
