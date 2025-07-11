@@ -280,6 +280,7 @@ class _SearchScreenState extends State<SearchScreen> {
           : _buildNoResultsState();
     }
 
+    // Use same boxShadow and borderRadius as product_slider.dart for product cards
     return Column(
       children: [
         // Results count
@@ -309,27 +310,58 @@ class _SearchScreenState extends State<SearchScreen> {
             itemCount: _products.length,
             itemBuilder: (context, index) {
               final product = _products[index];
-              return ProductCard(
-                imageUrl: product.imageWithSizes.medium.first,
-                title: product.name,
-                price: product.price,
-                originalPrice: product.originalPrice ?? 0,
-                priceFormatted: product.priceFormatted,
-                originalPriceFormatted: product.originalPriceFormatted,
-                reviewsCount: product.reviewsCount,
-                rating: product.reviewsAvg,
-                seller: product.store?.name,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => ProductDetailScreen(
+              // Safe image extraction: use placeholder if no image
+              String imageUrl = '';
+              if (product.imageWithSizes.medium.isNotEmpty) {
+                imageUrl = product.imageWithSizes.medium.first;
+              } else if (product.imageUrl.isNotEmpty) {
+                imageUrl = product.imageUrl;
+              } else {
+                imageUrl = 'assets/images/placeholder.png'; // Local placeholder asset
+              }
+              // Wrap ProductCard in a Container with boxShadow and borderRadius
+              return Container(
+                padding: const EdgeInsets.only(top: 16, bottom: 0), // giảm bottom cho cân đối hơn
+                decoration: BoxDecoration(
+                  color: AppColors.getCardBackgroundColor(context),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
+                    ),
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: ProductCard(
+                    imageUrl: imageUrl,
+                    title: product.name,
+                    price: product.price,
+                    originalPrice: product.originalPrice ?? 0,
+                    priceFormatted: product.priceFormatted,
+                    originalPriceFormatted: product.originalPriceFormatted,
+                    reviewsCount: product.reviewsCount,
+                    rating: product.reviewsAvg,
+                    seller: product.store?.name,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetailScreen(
                             product: {'slug': product.slug},
                           ),
-                    ),
-                  );
-                },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               );
             },
           ),

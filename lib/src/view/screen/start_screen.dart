@@ -17,9 +17,9 @@ class _StartScreenState extends State<StartScreen> {
   int _currentPage = 0;
 
   final List<Map<String, String>> _onboardingData = [
-    {'image': 'assets/images/onboarding/onboarding_1.jpg'},
-    {'image': 'assets/images/onboarding/onboarding_2.jpg'},
-    {'image': 'assets/images/onboarding/onboarding_3.jpg'},
+    {'image': 'assets/images/onboarding/onboarding_1.png'},
+    {'image': 'assets/images/onboarding/onboarding_2.png'},
+    {'image': 'assets/images/onboarding/onboarding_3.png'},
   ];
 
   void _navigateToHome() {

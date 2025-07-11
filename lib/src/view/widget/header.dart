@@ -88,7 +88,7 @@ class _HeaderState extends State<Header> {
                             width: 24,
                             height: 24,
                             colorFilter: const ColorFilter.mode(
-                              Colors.black,
+                              AppColors.colorIcon,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -136,7 +136,7 @@ class _HeaderState extends State<Header> {
                         width: 30,
                         height: 30,
                         colorFilter: const ColorFilter.mode(
-                          Colors.black,
+                          AppColors.colorIcon,
                           BlendMode.srcIn,
                         ),
                       ),
@@ -236,7 +236,7 @@ class _HeaderState extends State<Header> {
                             color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? AppColors.darkCardBackground
-                                    : Colors.black,
+                                    : AppColors.backgroundIcon,
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(8),
                               bottomRight: Radius.circular(8),

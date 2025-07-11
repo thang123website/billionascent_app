@@ -6,6 +6,9 @@ class AppColors {
   static const Color primary = Color(0xFFE6691D);
   static const Color primaryDark = Color(0xFFE6691D);
   static const Color primaryAppBar = Color(0xFFFFFFFF);
+  static const Color backgroundIcon= Color(0xFFE6691D);
+  static const Color colorIcon = Color(0xFFE6691D);
+  static const Color boxShadow= Color(0x22000000);
 
 
   // Background colors
@@ -43,7 +46,7 @@ class AppColors {
   static const Color info = Color(0xFF2196F3);
 
   // Price colors
-  static const Color priceColor = Color(0xFFE1332D);
+  static const Color priceColor = Color(0xFFE6691D);
   static const Color originalPriceColor = Color(0xFF9E9E9E);
 
   /// Get background color based on current theme

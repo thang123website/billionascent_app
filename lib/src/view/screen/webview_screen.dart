@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:martfury/src/theme/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:martfury/core/app_config.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;
@@ -19,6 +20,13 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   void initState() {
     super.initState();
+     String url = widget.url;
+    if (!url.startsWith('http')) {
+      if (!url.startsWith('/')) {
+        url = '/$url';
+      }
+      url = '${AppConfig.apiBaseUrl}$url';
+    }
     _controller =
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -48,7 +56,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
               },
             ),
           )
-          ..loadRequest(Uri.parse(widget.url));
+          // ..loadRequest(Uri.parse(widget.url));
+           ..loadRequest(Uri.parse(url));
   }
 
   @override

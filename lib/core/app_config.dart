@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConfig {
   static String get apiBaseUrl =>
-      dotenv.env['API_BASE_URL'] ?? 'https://ecommerce-api.botble.com';
+      dotenv.env['API_BASE_URL'] ?? 'https://billionasc.123websitedev.com';
   static String get apiKey => dotenv.env['API_KEY'] ?? '1234567890';
   static String appName = dotenv.env['APP_NAME'] ?? 'MartFury';
   static String appEnv = dotenv.env['APP_ENV'] ?? 'development';
@@ -13,12 +13,12 @@ class AppConfig {
 
   static String helpCenterUrl =
       dotenv.env['HELP_CENTER_URL'] ??
-      'https://ecommerce-api.botble.com/contact';
+      'https://billionasc.123websitedev.com/contact';
   static String customerSupportUrl =
       dotenv.env['CUSTOMER_SUPPORT_URL'] ??
-      'https://ecommerce-api.botble.com/contact';
+      'https://billionasc.123websitedev.com/contact';
   static String blogUrl =
-      dotenv.env['BLOG_URL'] ?? 'https://ecommerce-api.botble.com/blog';
+      dotenv.env['BLOG_URL'] ?? 'https://billionasc.123websitedev.com/blog';
 
   // Twitter
   static String? twitterConsumerKey = dotenv.env['TWITTER_CONSUMER_KEY'];

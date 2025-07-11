@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:martfury/src/theme/app_colors.dart';
+import 'package:martfury/src/utils/dimensions.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUrl;
@@ -29,12 +30,22 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Unified shadow, borderRadius for all product cards
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.only(top: 16, bottom: 0), 
+        height: Dimensions.height100(context) * 2.1,
         decoration: BoxDecoration(
           color: AppColors.getCardBackgroundColor(context),
           borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 16,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -43,7 +54,7 @@ class ProductCard extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+                topRight: Radius.circular(12),
               ),
               child: Image.network(
                 imageUrl,

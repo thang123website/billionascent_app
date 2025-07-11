@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:martfury/src/theme/app_colors.dart';
+import 'package:martfury/src/utils/dimensions.dart';
 import 'package:martfury/src/view/screen/product_detail_screen.dart';
 import 'package:martfury/src/service/product_service.dart';
 import 'package:martfury/src/view/widget/product_card.dart';
@@ -65,7 +66,7 @@ class _ProductSliderState extends State<ProductSlider> {
       children: [
         SectionHeader(title: widget.title, onViewAll: widget.onViewAll),
         SizedBox(
-          height: showTwoRows ? 658 : 329, // Adjust height based on rows
+          height: showTwoRows ? Dimensions.height100(context)*4.6 : 329, // Adjust height based on rows
           child: Column(
             children: [
               Expanded(
@@ -220,7 +221,7 @@ class _ProductSliderState extends State<ProductSlider> {
               // Only show dots if there are multiple pages
               if (totalPages > 1)
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 4.0), // Tăng top padding cho dot indicator
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(totalPages, (index) {

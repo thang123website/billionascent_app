@@ -260,14 +260,13 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder:
-                (context) => MainScreen(
-                  initialIndex: 2,
-                  productScreen: ProductScreen(
-                    categoryId: category.id,
-                    categoryName: category.name,
-                  ),
-                ),
+            builder: (context) => MainScreen(
+              initialIndex: 2,
+              productScreen: ProductScreen(
+                categoryId: category.id,
+                categoryName: category.name,
+              ),
+            ),
           ),
         );
       },
@@ -285,20 +284,20 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 3,
               child: Container(
-                margin: const EdgeInsets.all(12),
+                margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: AppColors.getCardBackgroundColor(context),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child:
-                    category.imageWithSizes?.medium != null
-                        ? ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+                child: category.imageWithSizes != null &&
+                        category.imageWithSizes!.medium.isNotEmpty
+                    ? AspectRatio(
+                        aspectRatio: 64 / 50,
+                        child: Center(
                           child: Image.network(
                             category.imageWithSizes!.medium,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
+                            fit: BoxFit.contain,
+                            alignment: Alignment.center,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 decoration: BoxDecoration(
@@ -313,18 +312,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                           ),
-                        )
-                        : Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.getSurfaceColor(context),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(
-                            Icons.category_outlined,
-                            size: 32,
-                            color: AppColors.getHintTextColor(context),
-                          ),
                         ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.getSurfaceColor(context),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.category_outlined,
+                          size: 32,
+                          color: AppColors.getHintTextColor(context),
+                        ),
+                      ),
               ),
             ),
             Expanded(
