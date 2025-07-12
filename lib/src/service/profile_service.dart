@@ -47,6 +47,8 @@ class ProfileService extends BaseService {
       // Add authorization header
       final token = await TokenService.getToken();
       request.headers['Authorization'] = 'Bearer $token';
+      // Add X-API-KEY header
+      request.headers['X-API-KEY'] = AppConfig.apiKey;
 
       // Add the file
       request.files.add(

@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
-        android:label="martfury"
+        android:label="Alibabachem"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -187,6 +187,8 @@ class ProductService extends BaseService {
       if (token != null) {
         request.headers['Authorization'] = 'Bearer $token';
       }
+      // Add X-API-KEY header
+      request.headers['X-API-KEY'] = AppConfig.apiKey;
 
       // Add form fields
       request.fields['product_id'] = productId.toString();
