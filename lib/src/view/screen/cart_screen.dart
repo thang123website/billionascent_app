@@ -175,22 +175,23 @@ class _CartScreenState extends State<CartScreen> {
               );
             },
           ),
-          IconButton(
-            icon: SvgPicture.asset(
-              'assets/images/icons/wishlist.svg',
-              width: 24,
-              height: 24,
-              colorFilter: const ColorFilter.mode(
-                Colors.black,
-                BlendMode.srcIn,
-              ),
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const WishlistScreen()),
-              );
-            },
-          ),
+          // Ẩn chức năng yêu thích
+          // IconButton(
+          //   icon: SvgPicture.asset(
+          //     'assets/images/icons/wishlist.svg',
+          //     width: 24,
+          //     height: 24,
+          //     colorFilter: const ColorFilter.mode(
+          //       Colors.black,
+          //       BlendMode.srcIn,
+          //     ),
+          //   ),
+          //   onPressed: () {
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(builder: (context) => const WishlistScreen()),
+          //     );
+          //   },
+          // ),
           IconButton(
             icon: const Icon(Icons.refresh, color: Colors.black),
             onPressed: _loadCartDetail,

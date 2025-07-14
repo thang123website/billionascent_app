@@ -2149,103 +2149,104 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
+                                        // Ẩn chức năng compare và wishlist
                                         // Compare button
-                                        Container(
-                                          width: 44,
-                                          height: 44,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.getBorderColor(
-                                                context,
-                                              ),
-                                              width: 1,
-                                            ),
-                                          ),
-                                          child: IconButton(
-                                            padding: EdgeInsets.zero,
-                                            onPressed:
-                                                _isAddingToCompare
-                                                    ? null
-                                                    : _addToCompare,
-                                            icon:
-                                                _isAddingToCompare
-                                                    ? const SizedBox(
-                                                      width: 18,
-                                                      height: 18,
-                                                      child: CircularProgressIndicator(
-                                                        strokeWidth: 2,
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                              Color
-                                                            >(Colors.black87),
-                                                      ),
-                                                    )
-                                                    : SvgPicture.asset(
-                                                      'assets/images/icons/compare.svg',
-                                                      width: 20,
-                                                      height: 20,
-                                                      colorFilter: ColorFilter.mode(
-                                                        AppColors.getSecondaryTextColor(
-                                                          context,
-                                                        ),
-                                                        BlendMode.srcIn,
-                                                      ),
-                                                    ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
+                                        // Container(
+                                        //   width: 44,
+                                        //   height: 44,
+                                        //   decoration: BoxDecoration(
+                                        //     shape: BoxShape.circle,
+                                        //     border: Border.all(
+                                        //       color: AppColors.getBorderColor(
+                                        //         context,
+                                        //       ),
+                                        //       width: 1,
+                                        //     ),
+                                        //   ),
+                                        //   child: IconButton(
+                                        //     padding: EdgeInsets.zero,
+                                        //     onPressed:
+                                        //         _isAddingToCompare
+                                        //             ? null
+                                        //             : _addToCompare,
+                                        //     icon:
+                                        //         _isAddingToCompare
+                                        //             ? const SizedBox(
+                                        //               width: 18,
+                                        //               height: 18,
+                                        //               child: CircularProgressIndicator(
+                                        //                 strokeWidth: 2,
+                                        //                 valueColor:
+                                        //                     AlwaysStoppedAnimation<
+                                        //                       Color
+                                        //                     >(Colors.black87),
+                                        //               ),
+                                        //             )
+                                        //             : SvgPicture.asset(
+                                        //               'assets/images/icons/compare.svg',
+                                        //               width: 20,
+                                        //               height: 20,
+                                        //               colorFilter: ColorFilter.mode(
+                                        //                 AppColors.getSecondaryTextColor(
+                                        //                   context,
+                                        //                 ),
+                                        //                 BlendMode.srcIn,
+                                        //               ),
+                                        //             ),
+                                        //   ),
+                                        // ),
+                                        // const SizedBox(width: 8),
                                         // Wishlist button
-                                        Container(
-                                          width: 44,
-                                          height: 44,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.getBorderColor(
-                                                context,
-                                              ),
-                                              width: 1,
-                                            ),
-                                          ),
-                                          child: IconButton(
-                                            padding: EdgeInsets.zero,
-                                            onPressed:
-                                                _isAddingToWishlist ||
-                                                        _isRemovingFromWishlist
-                                                    ? null
-                                                    : () {
-                                                      if (_isWishlisted) {
-                                                        _removeFromWishlist();
-                                                      } else {
-                                                        _addToWishlist();
-                                                      }
-                                                    },
-                                            icon:
-                                                _isAddingToWishlist ||
-                                                        _isRemovingFromWishlist
-                                                    ? const SizedBox(
-                                                      width: 18,
-                                                      height: 18,
-                                                      child: CircularProgressIndicator(
-                                                        strokeWidth: 2,
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                              Color
-                                                            >(Colors.red),
-                                                      ),
-                                                    )
-                                                    : Icon(
-                                                      _isWishlisted
-                                                          ? Icons.favorite
-                                                          : Icons
-                                                              .favorite_border,
-                                                      color: AppColors.error,
-                                                      size: 20,
-                                                    ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
+                                        // Container(
+                                        //   width: 44,
+                                        //   height: 44,
+                                        //   decoration: BoxDecoration(
+                                        //     shape: BoxShape.circle,
+                                        //     border: Border.all(
+                                        //       color: AppColors.getBorderColor(
+                                        //         context,
+                                        //       ),
+                                        //       width: 1,
+                                        //     ),
+                                        //   ),
+                                        //   child: IconButton(
+                                        //     padding: EdgeInsets.zero,
+                                        //     onPressed:
+                                        //         _isAddingToWishlist ||
+                                        //                 _isRemovingFromWishlist
+                                        //             ? null
+                                        //             : () {
+                                        //               if (_isWishlisted) {
+                                        //                 _removeFromWishlist();
+                                        //               } else {
+                                        //                 _addToWishlist();
+                                        //               }
+                                        //             },
+                                        //     icon:
+                                        //         _isAddingToWishlist ||
+                                        //                 _isRemovingFromWishlist
+                                        //             ? const SizedBox(
+                                        //               width: 18,
+                                        //               height: 18,
+                                        //               child: CircularProgressIndicator(
+                                        //                 strokeWidth: 2,
+                                        //                 valueColor:
+                                        //                     AlwaysStoppedAnimation<
+                                        //                       Color
+                                        //                     >(Colors.red),
+                                        //               ),
+                                        //             )
+                                        //             : Icon(
+                                        //               _isWishlisted
+                                        //                   ? Icons.favorite
+                                        //                   : Icons
+                                        //                       .favorite_border,
+                                        //               color: AppColors.error,
+                                        //               size: 20,
+                                        //             ),
+                                        //   ),
+                                        // ),
+                                        // const SizedBox(width: 8),
                                         // Share button
                                         Container(
                                           width: 44,
@@ -2911,489 +2912,490 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ],
                               ),
                               const SizedBox(height: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${'product.reviews'.tr()} (${_reviews.length})',
-                                        key: _reviewsKey,
-                                        style: kAppTextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.getPrimaryTextColor(
-                                            context,
-                                          ),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Divider(
-                                    color: AppColors.getBorderColor(context),
-                                    thickness: 1,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  // Insert the new rating display section here
-                                  if (_productDetail['reviews_count'] != null &&
-                                      _productDetail['reviews_count'] > 0)
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          (_productDetail['reviews_avg']
-                                                      as double?)
-                                                  ?.toStringAsFixed(2) ??
-                                              '0.0',
-                                          style: kAppTextStyle(
-                                            fontSize:
-                                                48, // Large font for the score
-                                            color: const Color(
-                                              0xFF689F38,
-                                            ), // Green color for the score
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 16),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              children:
-                                                  List.generate(5, (index) {
-                                                    double avgRating =
-                                                        (_productDetail['reviews_avg']
-                                                            as double?) ??
-                                                        0.0;
-                                                    return Icon(
-                                                      index < avgRating
-                                                          ? Icons.star
-                                                          : Icons
-                                                              .star_border_outlined,
-                                                      color:
-                                                          index < avgRating
-                                                              ? AppColors
-                                                                  .primary
-                                                              : AppColors.getBorderColor(
-                                                                context,
-                                                              ),
-                                                      size: 22,
-                                                    );
-                                                  }).toList(),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              '${_reviews.length} ${'product.reviews'.tr()}',
-                                              style: kAppTextStyle(
-                                                fontSize: 14,
-                                                color:
-                                                    AppColors.getSecondaryTextColor(
-                                                      context,
-                                                    ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              // Ẩn chức năng đánh giá sản phẩm
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Row(
+                              //       mainAxisAlignment:
+                              //           MainAxisAlignment.spaceBetween,
+                              //       children: [
+                              //         Text(
+                              //           '${'product.reviews'.tr()} (${_reviews.length})',
+                              //           key: _reviewsKey,
+                              //           style: kAppTextStyle(
+                              //             fontSize: 18,
+                              //             color: AppColors.getPrimaryTextColor(
+                              //               context,
+                              //             ),
+                              //             fontWeight: FontWeight.bold,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //     const SizedBox(height: 10),
+                              //     Divider(
+                              //       color: AppColors.getBorderColor(context),
+                              //       thickness: 1,
+                              //     ),
+                              //     const SizedBox(height: 10),
+                              //     // Insert the new rating display section here
+                              //     if (_productDetail['reviews_count'] != null &&
+                              //         _productDetail['reviews_count'] > 0)
+                              //       Row(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.center,
+                              //         children: [
+                              //           Text(
+                              //             (_productDetail['reviews_avg']
+                              //                         as double?)
+                              //                     ?.toStringAsFixed(2) ??
+                              //                 '0.0',
+                              //             style: kAppTextStyle(
+                              //               fontSize:
+                              //                   48, // Large font for the score
+                              //               color: const Color(
+                              //                 0xFF689F38,
+                              //               ), // Green color for the score
+                              //               fontWeight: FontWeight.bold,
+                              //             ),
+                              //           ),
+                              //           const SizedBox(width: 16),
+                              //           Column(
+                              //             crossAxisAlignment:
+                              //                 CrossAxisAlignment.start,
+                              //             mainAxisSize: MainAxisSize.min,
+                              //             children: [
+                              //               Row(
+                              //                 children:
+                              //                     List.generate(5, (index) {
+                              //                       double avgRating =
+                              //                           (_productDetail['reviews_avg']
+                              //                               as double?) ??
+                              //                           0.0;
+                              //                       return Icon(
+                              //                         index < avgRating
+                              //                             ? Icons.star
+                              //                             : Icons
+                              //                                 .star_border_outlined,
+                              //                         color:
+                              //                             index < avgRating
+                              //                                 ? AppColors
+                              //                                     .primary
+                              //                                 : AppColors.getBorderColor(
+                              //                                   context,
+                              //                                 ),
+                              //                         size: 22,
+                              //                       );
+                              //                     }).toList(),
+                              //               ),
+                              //               const SizedBox(height: 4),
+                              //               Text(
+                              //                 '${_reviews.length} ${'product.reviews'.tr()}',
+                              //                 style: kAppTextStyle(
+                              //                   fontSize: 14,
+                              //                   color:
+                              //                       AppColors.getSecondaryTextColor(
+                              //                         context,
+                              //                       ),
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
 
-                                  const SizedBox(height: 16),
-                                  // Review form - Modern clean design
-                                  if (_isLoggedIn && !_hasReviewed)
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Title
-                                        Text(
-                                          'SUBMIT YOUR REVIEW',
-                                          style: kAppTextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                AppColors.getPrimaryTextColor(
-                                                  context,
-                                                ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 24),
-                                        // Rating section - clean design
-                                        Text(
-                                          'Your rating of this product:',
-                                          style: kAppTextStyle(
-                                            fontSize: 16,
-                                            color:
-                                                AppColors.getPrimaryTextColor(
-                                                  context,
-                                                ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 12),
-                                        Row(
-                                          children: List.generate(
-                                            5,
-                                            (index) => GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  _selectedRating = index + 1;
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                  right: 8,
-                                                ),
-                                                child: Icon(
-                                                  index < _selectedRating
-                                                      ? Icons.star
-                                                      : Icons.star_border,
-                                                  size: 32,
-                                                  color:
-                                                      index < _selectedRating
-                                                          ? AppColors.primary
-                                                          : AppColors.getSecondaryTextColor(
-                                                            context,
-                                                          ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 32),
-                                        // Comment section - clean design
-                                        TextField(
-                                          controller: _reviewCommentController,
-                                          decoration: InputDecoration(
-                                            hintText: 'Write your review ...',
-                                            hintStyle: kAppTextStyle(
-                                              color: AppColors.getHintTextColor(
-                                                context,
-                                              ),
-                                              fontSize: 16,
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                AppColors.getSurfaceColor(
-                                                  context,
-                                                ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: BorderSide(
-                                                color: AppColors.getBorderColor(
-                                                  context,
-                                                ),
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: BorderSide(
-                                                color: AppColors.getBorderColor(
-                                                  context,
-                                                ),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: const BorderSide(
-                                                color: AppColors.primary,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            contentPadding:
-                                                const EdgeInsets.all(16),
-                                          ),
-                                          maxLines: 6,
-                                          minLines: 4,
-                                        ),
-                                        const SizedBox(height: 24),
-                                        // Image upload section - simplified
-                                        _buildImageUploadSection(),
-                                        const SizedBox(height: 32),
-                                        // Submit button - clean design
-                                        SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed:
-                                                _isSubmittingReview
-                                                    ? null
-                                                    : _submitReview,
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              foregroundColor: Colors.black,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    vertical: 18,
-                                                  ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              elevation: 0,
-                                            ),
-                                            child:
-                                                _isSubmittingReview
-                                                    ? Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        const SizedBox(
-                                                          width: 20,
-                                                          height: 20,
-                                                          child: CircularProgressIndicator(
-                                                            strokeWidth: 2,
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                  Color
-                                                                >(Colors.black),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 12,
-                                                        ),
-                                                        Text(
-                                                          'Submitting...',
-                                                          style: kAppTextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                    : Text(
-                                                      'Submit Review',
-                                                      style: kAppTextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  else if (_isLoggedIn && _hasReviewed)
-                                    Container(
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.getCardBackgroundColor(
-                                          context,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                          color: AppColors.success.withValues(
-                                            alpha: 0.3,
-                                          ),
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.check_circle_outline,
-                                            color: AppColors.success,
-                                            size: 24,
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Expanded(
-                                            child: Text(
-                                              'product.you_already_reviewed'
-                                                  .tr(),
-                                              style: kAppTextStyle(
-                                                fontSize: 16,
-                                                color:
-                                                    AppColors.getPrimaryTextColor(
-                                                      context,
-                                                    ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  else
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                AppColors.getCardBackgroundColor(
-                                                  context,
-                                                ),
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            border: Border.all(
-                                              color: AppColors.getBorderColor(
-                                                context,
-                                              ),
-                                              width: 1,
-                                            ),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Sign in to review',
-                                                style: kAppTextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color:
-                                                      AppColors.getPrimaryTextColor(
-                                                        context,
-                                                      ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 8),
-                                              Text(
-                                                'Share your experience with other customers',
-                                                style: kAppTextStyle(
-                                                  fontSize: 14,
-                                                  color:
-                                                      AppColors.getSecondaryTextColor(
-                                                        context,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 16),
-                                        SizedBox(
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (context) =>
-                                                          const SignInScreen(),
-                                                ),
-                                              ).then((_) {
-                                                _checkLoginStatus();
-                                              });
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.primary,
-                                              foregroundColor: Colors.black,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    vertical: 16,
-                                                  ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              elevation: 0,
-                                            ),
-                                            child: Text(
-                                              'common.sign_in'.tr(),
-                                              style: kAppTextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  const SizedBox(height: 24),
-                                  // Top reviews
-                                  Text(
-                                    'product.top_reviews'.tr(),
-                                    style: kAppTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  if (_isLoadingReviews)
-                                    const Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppColors.primary,
-                                      ),
-                                    )
-                                  else if (_reviewError != null)
-                                    Center(
-                                      child: Text(
-                                        _reviewError!,
-                                        style: kAppTextStyle(
-                                          color: AppColors.error,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    )
-                                  else if (_reviews.isEmpty)
-                                    Center(
-                                      child: Text(
-                                        'No reviews yet',
-                                        style: kAppTextStyle(
-                                          color:
-                                              AppColors.getSecondaryTextColor(
-                                                context,
-                                              ),
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    )
-                                  else
-                                    ..._reviews.asMap().entries.map((entry) {
-                                      final index = entry.key;
-                                      final review = entry.value;
-                                      final isLast =
-                                          index == _reviews.length - 1;
+                              //     const SizedBox(height: 16),
+                              //     // Review form - Modern clean design
+                              //     if (_isLoggedIn && !_hasReviewed)
+                              //       Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.start,
+                              //         children: [
+                              //           // Title
+                              //           Text(
+                              //             'SUBMIT YOUR REVIEW',
+                              //             style: kAppTextStyle(
+                              //               fontSize: 18,
+                              //               fontWeight: FontWeight.bold,
+                              //               color:
+                              //                   AppColors.getPrimaryTextColor(
+                              //                     context,
+                              //                   ),
+                              //             ),
+                              //           ),
+                              //           const SizedBox(height: 24),
+                              //           // Rating section - clean design
+                              //           Text(
+                              //             'Your rating of this product:',
+                              //             style: kAppTextStyle(
+                              //               fontSize: 16,
+                              //               color:
+                              //                   AppColors.getPrimaryTextColor(
+                              //                     context,
+                              //                   ),
+                              //             ),
+                              //           ),
+                              //           const SizedBox(height: 12),
+                              //           Row(
+                              //             children: List.generate(
+                              //               5,
+                              //               (index) => GestureDetector(
+                              //                 onTap: () {
+                              //                   setState(() {
+                              //                     _selectedRating = index + 1;
+                              //                   });
+                              //                 },
+                              //                 child: Padding(
+                              //                   padding: const EdgeInsets.only(
+                              //                     right: 8,
+                              //                   ),
+                              //                   child: Icon(
+                              //                     index < _selectedRating
+                              //                         ? Icons.star
+                              //                         : Icons.star_border,
+                              //                     size: 32,
+                              //                     color:
+                              //                         index < _selectedRating
+                              //                             ? AppColors.primary
+                              //                             : AppColors.getSecondaryTextColor(
+                              //                               context,
+                              //                             ),
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           const SizedBox(height: 32),
+                              //           // Comment section - clean design
+                              //           TextField(
+                              //             controller: _reviewCommentController,
+                              //             decoration: InputDecoration(
+                              //               hintText: 'Write your review ...',
+                              //               hintStyle: kAppTextStyle(
+                              //                 color: AppColors.getHintTextColor(
+                              //                   context,
+                              //                 ),
+                              //                 fontSize: 16,
+                              //               ),
+                              //               filled: true,
+                              //               fillColor:
+                              //                   AppColors.getSurfaceColor(
+                              //                     context,
+                              //                   ),
+                              //               border: OutlineInputBorder(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(8),
+                              //                 borderSide: BorderSide(
+                              //                   color: AppColors.getBorderColor(
+                              //                     context,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //               enabledBorder: OutlineInputBorder(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(8),
+                              //                 borderSide: BorderSide(
+                              //                   color: AppColors.getBorderColor(
+                              //                     context,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //               focusedBorder: OutlineInputBorder(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(8),
+                              //                 borderSide: const BorderSide(
+                              //                   color: AppColors.primary,
+                              //                   width: 2,
+                              //                 ),
+                              //               ),
+                              //               contentPadding:
+                              //                   const EdgeInsets.all(16),
+                              //             ),
+                              //             maxLines: 6,
+                              //             minLines: 4,
+                              //           ),
+                              //           const SizedBox(height: 24),
+                              //           // Image upload section - simplified
+                              //           _buildImageUploadSection(),
+                              //           const SizedBox(height: 32),
+                              //           // Submit button - clean design
+                              //           SizedBox(
+                              //             width: double.infinity,
+                              //             child: ElevatedButton(
+                              //               onPressed:
+                              //                   _isSubmittingReview
+                              //                       ? null
+                              //                       : _submitReview,
+                              //               style: ElevatedButton.styleFrom(
+                              //                 backgroundColor:
+                              //                     AppColors.primary,
+                              //                 foregroundColor: Colors.black,
+                              //                 padding:
+                              //                     const EdgeInsets.symmetric(
+                              //                       vertical: 18,
+                              //                     ),
+                              //                 shape: RoundedRectangleBorder(
+                              //                   borderRadius:
+                              //                       BorderRadius.circular(8),
+                              //                 ),
+                              //                 elevation: 0,
+                              //               ),
+                              //               child:
+                              //                   _isSubmittingReview
+                              //                       ? Row(
+                              //                         mainAxisAlignment:
+                              //                             MainAxisAlignment
+                              //                                 .center,
+                              //                         children: [
+                              //                           const SizedBox(
+                              //                             width: 20,
+                              //                             height: 20,
+                              //                             child: CircularProgressIndicator(
+                              //                               strokeWidth: 2,
+                              //                               valueColor:
+                              //                                   AlwaysStoppedAnimation<
+                              //                                     Color
+                              //                                   >(Colors.black),
+                              //                             ),
+                              //                           ),
+                              //                           const SizedBox(
+                              //                             width: 12,
+                              //                           ),
+                              //                           Text(
+                              //                             'Submitting...',
+                              //                             style: kAppTextStyle(
+                              //                               fontSize: 16,
+                              //                               fontWeight:
+                              //                                   FontWeight.w600,
+                              //                               color: Colors.black,
+                              //                             ),
+                              //                           ),
+                              //                         ],
+                              //                       )
+                              //                       : Text(
+                              //                         'Submit Review',
+                              //                         style: kAppTextStyle(
+                              //                           fontSize: 16,
+                              //                           fontWeight:
+                              //                               FontWeight.w600,
+                              //                           color: Colors.black,
+                              //                         ),
+                              //                       ),
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       )
+                              //     else if (_isLoggedIn && _hasReviewed)
+                              //       Container(
+                              //         width: double.infinity,
+                              //         padding: const EdgeInsets.all(20),
+                              //         decoration: BoxDecoration(
+                              //           color: AppColors.getCardBackgroundColor(
+                              //             context,
+                              //           ),
+                              //           borderRadius: BorderRadius.circular(8),
+                              //           border: Border.all(
+                              //             color: AppColors.success.withValues(
+                              //               alpha: 0.3,
+                              //             ),
+                              //             width: 1,
+                              //           ),
+                              //         ),
+                              //         child: Row(
+                              //           children: [
+                              //             const Icon(
+                              //               Icons.check_circle_outline,
+                              //               color: AppColors.success,
+                              //               size: 24,
+                              //             ),
+                              //             const SizedBox(width: 12),
+                              //             Expanded(
+                              //               child: Text(
+                              //                 'product.you_already_reviewed'
+                              //                     .tr(),
+                              //                 style: kAppTextStyle(
+                              //                   fontSize: 16,
+                              //                   color:
+                              //                       AppColors.getPrimaryTextColor(
+                              //                         context,
+                              //                       ),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       )
+                              //     else
+                              //       Column(
+                              //         children: [
+                              //           Container(
+                              //             width: double.infinity,
+                              //             padding: const EdgeInsets.all(20),
+                              //             decoration: BoxDecoration(
+                              //               color:
+                              //                   AppColors.getCardBackgroundColor(
+                              //                     context,
+                              //                   ),
+                              //               borderRadius: BorderRadius.circular(
+                              //                 8,
+                              //               ),
+                              //               border: Border.all(
+                              //                 color: AppColors.getBorderColor(
+                              //                   context,
+                              //                 ),
+                              //                 width: 1,
+                              //               ),
+                              //             ),
+                              //             child: Column(
+                              //               crossAxisAlignment:
+                              //                   CrossAxisAlignment.start,
+                              //               children: [
+                              //                 Text(
+                              //                   'Sign in to review',
+                              //                   style: kAppTextStyle(
+                              //                     fontSize: 16,
+                              //                     fontWeight: FontWeight.w500,
+                              //                     color:
+                              //                         AppColors.getPrimaryTextColor(
+                              //                           context,
+                              //                         ),
+                              //                   ),
+                              //                 ),
+                              //                 const SizedBox(height: 8),
+                              //                 Text(
+                              //                   'Share your experience with other customers',
+                              //                   style: kAppTextStyle(
+                              //                     fontSize: 14,
+                              //                     color:
+                              //                         AppColors.getSecondaryTextColor(
+                              //                           context,
+                              //                         ),
+                              //                   ),
+                              //                 ),
+                              //               ],
+                              //             ),
+                              //           ),
+                              //           const SizedBox(height: 16),
+                              //           SizedBox(
+                              //             width: double.infinity,
+                              //             child: ElevatedButton(
+                              //               onPressed: () {
+                              //                 Navigator.push(
+                              //                   context,
+                              //                   MaterialPageRoute(
+                              //                     builder:
+                              //                         (context) =>
+                              //                             const SignInScreen(),
+                              //                   ),
+                              //                 ).then((_) {
+                              //                   _checkLoginStatus();
+                              //                 });
+                              //               },
+                              //               style: ElevatedButton.styleFrom(
+                              //                 backgroundColor:
+                              //                     AppColors.primary,
+                              //                 foregroundColor: Colors.black,
+                              //                 padding:
+                              //                     const EdgeInsets.symmetric(
+                              //                       vertical: 16,
+                              //                     ),
+                              //                 shape: RoundedRectangleBorder(
+                              //                   borderRadius:
+                              //                       BorderRadius.circular(8),
+                              //                 ),
+                              //                 elevation: 0,
+                              //               ),
+                              //               child: Text(
+                              //                 'common.sign_in'.tr(),
+                              //                 style: kAppTextStyle(
+                              //                   fontSize: 16,
+                              //                   fontWeight: FontWeight.w600,
+                              //                   color: Colors.black,
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     const SizedBox(height: 24),
+                              //     // Top reviews
+                              //     Text(
+                              //       'product.top_reviews'.tr(),
+                              //       style: kAppTextStyle(
+                              //         fontSize: 16,
+                              //         fontWeight: FontWeight.bold,
+                              //       ),
+                              //     ),
+                              //     const SizedBox(height: 16),
+                              //     if (_isLoadingReviews)
+                              //       const Center(
+                              //         child: CircularProgressIndicator(
+                              //           color: AppColors.primary,
+                              //         ),
+                              //       )
+                              //     else if (_reviewError != null)
+                              //       Center(
+                              //         child: Text(
+                              //           _reviewError!,
+                              //           style: kAppTextStyle(
+                              //             color: AppColors.error,
+                              //             fontSize: 14,
+                              //           ),
+                              //         ),
+                              //       )
+                              //     else if (_reviews.isEmpty)
+                              //       Center(
+                              //         child: Text(
+                              //           'No reviews yet',
+                              //           style: kAppTextStyle(
+                              //             color:
+                              //                 AppColors.getSecondaryTextColor(
+                              //                   context,
+                              //                 ),
+                              //             fontSize: 14,
+                              //           ),
+                              //         ),
+                              //       )
+                              //     else
+                              //       ..._reviews.asMap().entries.map((entry) {
+                              //         final index = entry.key;
+                              //         final review = entry.value;
+                              //         final isLast =
+                              //             index == _reviews.length - 1;
 
-                                      return Column(
-                                        children: [
-                                          _buildReviewItem(
-                                            avatar: review.userAvatar,
-                                            name: review.userName,
-                                            rating: review.star,
-                                            date: review.createdAt,
-                                            comment: review.comment,
-                                            orderedAt: review.orderedAt ?? '',
-                                            images:
-                                                review.images
-                                                    .map(
-                                                      (image) => image.fullUrl,
-                                                    )
-                                                    .toList(),
-                                          ),
-                                          if (!isLast) ...[
-                                            const SizedBox(height: 16),
-                                            Divider(
-                                              color: AppColors.getBorderColor(
-                                                context,
-                                              ),
-                                              thickness: 1,
-                                            ),
-                                            const SizedBox(height: 16),
-                                          ],
-                                        ],
-                                      );
-                                    }).toList(),
-                                ],
-                              ),
-                              const SizedBox(height: 24),
+                              //         return Column(
+                              //           children: [
+                              //             _buildReviewItem(
+                              //               avatar: review.userAvatar,
+                              //               name: review.userName,
+                              //               rating: review.star,
+                              //               date: review.createdAt,
+                              //               comment: review.comment,
+                              //               orderedAt: review.orderedAt ?? '',
+                              //               images:
+                              //                   review.images
+                              //                       .map(
+                              //                         (image) => image.fullUrl,
+                              //                       )
+                              //                       .toList(),
+                              //             ),
+                              //             if (!isLast) ...[
+                              //               const SizedBox(height: 16),
+                              //               Divider(
+                              //                 color: AppColors.getBorderColor(
+                              //                   context,
+                              //                 ),
+                              //                 thickness: 1,
+                              //               ),
+                              //               const SizedBox(height: 16),
+                              //             ],
+                              //           ],
+                              //         );
+                              //       }).toList(),
+                              //   ],
+                              // ),
+                              // const SizedBox(height: 24),
                               Divider(
                                 color: AppColors.getBorderColor(context),
                                 thickness: 1,

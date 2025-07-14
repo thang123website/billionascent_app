@@ -325,109 +325,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         centerTitle: false,
-        actions: [
-          // Wishlist button with badge
-          Stack(
-            children: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/icons/wishlist.svg',
-                  width: 24,
-                  height: 24,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.black,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WishlistScreen(),
-                    ),
-                  );
-                },
-              ),
-              if (_wishlistCount > 0)
-                Positioned(
-                  right: isRtl ? null : 6,
-                  left: isRtl ? 6 : null,
-                  top: 6,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 18,
-                      minHeight: 18,
-                    ),
-                    child: Text(
-                      _wishlistCount.toString(),
-                      style: kAppTextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          // Compare button with badge
-          Stack(
-            children: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/icons/compare.svg',
-                  width: 24,
-                  height: 24,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.black,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CompareScreen(),
-                    ),
-                  );
-                },
-              ),
-              if (_compareCount > 0)
-                Positioned(
-                  right: isRtl ? null : 6,
-                  left: isRtl ? 6 : null,
-                  top: 6,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 18,
-                      minHeight: 18,
-                    ),
-                    child: Text(
-                      _compareCount.toString(),
-                      style: kAppTextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(width: 8),
-        ],
+        // Ẩn actions for wishlist and compare buttons
+        // actions: [
+        //   // Wishlist button with badge
+        //   Stack(
+        //     children: [
+        //       IconButton(
+        //         icon: SvgPicture.asset(
+        //           'assets/images/icons/wishlist.svg',
+        //           width: 24,
+        //           height: 24,
+        //           colorFilter: const ColorFilter.mode(
+        //             Colors.black,
+        //             BlendMode.srcIn,
+        //           ),
+        //         ),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //               builder: (context) => const WishlistScreen(),
+        //             ),
+        //           );
+        //         },
+        //       ),
+        //       if (_wishlistCount > 0)
+        //         Positioned(
+        //           right: isRtl ? null : 6,
+        //           left: isRtl ? 6 : null,
+        //           top: 6,
+        //           child: Container(
+        //             padding: const EdgeInsets.all(4),
+        //             decoration: const BoxDecoration(
+        //               color: Colors.black,
+        //               shape: BoxShape.circle,
+        //             ),
+        //             constraints: const BoxConstraints(
+        //               minWidth: 18,
+        //               minHeight: 18,
+        //             ),
+        //             child: Text(
+        //               _wishlistCount.toString(),
+        //               style: kAppTextStyle(
+        //                 fontSize: 10,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: Colors.white,
+        //               ),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ),
+        //     ],
+        //   ),
+        //   // Compare button with badge
+        //   Stack(
+        //     children: [
+        //       IconButton(
+        //         icon: SvgPicture.asset(
+        //           'assets/images/icons/compare.svg',
+        //           width: 24,
+        //           height: 24,
+        //           colorFilter: const ColorFilter.mode(
+        //             Colors.black,
+        //             BlendMode.srcIn,
+        //           ),
+        //         ),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //               builder: (context) => const CompareScreen(),
+        //             ),
+        //           );
+        //         },
+        //       ),
+        //       if (_compareCount > 0)
+        //         Positioned(
+        //           right: isRtl ? null : 6,
+        //           left: isRtl ? 6 : null,
+        //           top: 6,
+        //           child: Container(
+        //             padding: const EdgeInsets.all(4),
+        //             decoration: const BoxDecoration(
+        //               color: Colors.black,
+        //               shape: BoxShape.circle,
+        //             ),
+        //             constraints: const BoxConstraints(
+        //               minWidth: 18,
+        //               minHeight: 18,
+        //             ),
+        //             child: Text(
+        //               _compareCount.toString(),
+        //               style: kAppTextStyle(
+        //                 fontSize: 10,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: Colors.white,
+        //               ),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ),
+        //     ],
+        //   ),
+        //   const SizedBox(width: 8),
+        // ],
       ),
       body: Column(
         children: [
@@ -543,7 +544,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                     // Track order and support menu items - available for all users
-                    const SizedBox(height: 24),
+                    // const SizedBox(height: 24),
                     _buildMenuItem(
                       'orders.track_order'.tr(),
                       Icons.local_shipping_outlined,
@@ -630,11 +631,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    _buildMenuItem(
-                      _selectedCurrency?.title ?? 'profile.currencies'.tr(),
-                      Icons.currency_exchange,
-                      onTap: (context) => _showCurrencySelection(),
-                    ),
+                    // Ẩn chức năng chọn tiền tệ
+                    // _buildMenuItem(
+                    //   _selectedCurrency?.title ?? 'profile.currencies'.tr(),
+                    //   Icons.currency_exchange,
+                    //   onTap: (context) => _showCurrencySelection(),
+                    // ),
                     _buildMenuItem(
                       _selectedLanguage?.name ?? 'profile.languages'.tr(),
                       Icons.language,
@@ -872,19 +874,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              Expanded(
-                child: _buildOrderStatusCard(
-                  'common.reviews'.tr(),
-                  Icons.star_outline,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ReviewsScreen(),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
+              // Expanded(
+              //   child: _buildOrderStatusCard(
+              //     'common.reviews'.tr(),
+              //     Icons.star_outline,
+              //     () => Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => const ReviewsScreen(),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(width: 12),
               Expanded(
                 child: _buildOrderStatusCard(
                   'orders.returns'.tr(),
