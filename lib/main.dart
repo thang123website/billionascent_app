@@ -62,6 +62,7 @@ void main() async {
         Locale('fr'), // French
         Locale('hi'), // Hindi
         Locale('id'), // Indonesian
+        Locale('zh'), // China
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),

@@ -223,7 +223,10 @@
     "language_change_message": "Vui lòng khởi động lại ứng dụng để xem các thay đổi",
     "language_change_message_rtl": "Vui lòng khởi động lại ứng dụng để xem các thay đổi. Bố cục ứng dụng sẽ chuyển sang hướng từ phải sang trái.",
     "currency_change_title": "Tiền tệ đã thay đổi",
-    "currency_change_message": "Vui lòng khởi động lại ứng dụng để xem các thay đổi"
+    "currency_change_message": "Vui lòng khởi động lại ứng dụng để xem các thay đổi",
+    "welcome": "Chào mừng",
+    "sign_in_to_continue": "Đăng nhập để tiếp tục",
+    "user": "Người dùng"
   },
 
   "address": {
