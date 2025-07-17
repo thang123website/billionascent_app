@@ -321,7 +321,7 @@ class _SearchScreenState extends State<SearchScreen> {
               }
               // Wrap ProductCard in a Container with boxShadow and borderRadius
               return Container(
-                padding: const EdgeInsets.only(top: 16, bottom: 0), // giảm bottom cho cân đối hơn
+                padding: const EdgeInsets.only(top: 8, bottom: 0), // giảm bottom cho cân đối hơn
                 decoration: BoxDecoration(
                   color: AppColors.getCardBackgroundColor(context),
                   borderRadius: BorderRadius.circular(12),
