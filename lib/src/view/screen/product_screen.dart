@@ -433,14 +433,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Sort by: ${entry.value}',
+                                        'Sort by:\n${entry.value}',
                                         style: kAppTextStyle(
                                           fontSize: 14,
                                           color: Colors.grey.shade700,
                                           fontWeight: FontWeight.w500,
                                           height: 1.0,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        softWrap: true,
                                       ),
                                     ),
                                   );
@@ -458,14 +459,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                 return Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Sort by: ${entry.value}',
+                                    'Sort by:\n${entry.value}',
                                     style: kAppTextStyle(
                                       fontSize: 14,
                                       color: Colors.grey.shade700,
                                       fontWeight: FontWeight.w500,
                                       height: 1.0,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    softWrap: true,
                                   ),
                                 );
                               }).toList();

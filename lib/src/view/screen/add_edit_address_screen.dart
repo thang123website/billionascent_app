@@ -892,13 +892,13 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
     // Ensure unique country names for dropdown
     final uniqueCountries = <String, Country>{};
     for (var country in _countries) {
-      uniqueCountries[country.name] = country;
+      uniqueCountries[country.code] = country;
     }
-    // If the selected country is not in the list, reset it
+    // Nếu _selectedCountry không nằm trong danh sách code, reset về rỗng
     if (_selectedCountry.isNotEmpty && !uniqueCountries.containsKey(_selectedCountry)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() {
-          _selectedCountry = uniqueCountries.isNotEmpty ? uniqueCountries.values.first.name : '';
+          _selectedCountry = uniqueCountries.isNotEmpty ? uniqueCountries.values.first.code : '';
         });
       });
     }
@@ -949,7 +949,7 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
       items: uniqueCountries.values
           .map(
             (country) => DropdownMenuItem<String>(
-              value: country.name,
+              value: country.code,
               child: Text(
                 country.name,
                 style: kAppTextStyle(
@@ -963,7 +963,7 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
           .toList(),
       onChanged: (value) {
         setState(() {
-          _selectedCountry = value ?? '';
+          _selectedCountry = value!;
         });
       },
       validator: (value) {

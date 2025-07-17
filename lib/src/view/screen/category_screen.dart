@@ -440,9 +440,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
-                                        category.imageWithSizes!.thumb,
-                                        width: 48,
-                                        height: 48,
+                                        category.imageWithSizes!.origin,
+                                        width: 64,
+                                        height: 56,
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (_, __, ___) => Icon(

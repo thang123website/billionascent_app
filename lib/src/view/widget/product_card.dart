@@ -59,7 +59,7 @@ class ProductCard extends StatelessWidget {
               child: Image.network(
                 imageUrl,
                 width: double.infinity,
-                height: 120,
+                height: Dimensions.height40(context) * 3.3,
                 fit: BoxFit.cover,
               ),
             ),
@@ -71,7 +71,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 14,

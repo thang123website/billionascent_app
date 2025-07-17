@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         aspectRatio: 64 / 50,
                         child: Center(
                           child: Image.network(
-                            category.imageWithSizes!.medium,
+                            category.imageWithSizes!.origin,
                             fit: BoxFit.contain,
                             alignment: Alignment.center,
                             errorBuilder: (context, error, stackTrace) {

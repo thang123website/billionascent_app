@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:martfury/src/theme/app_fonts.dart';
 import 'package:martfury/src/theme/app_colors.dart';
 import 'package:martfury/src/service/cart_service.dart';
+import 'package:martfury/src/utils/dimensions.dart';
 import 'dart:async';
 import 'package:martfury/src/view/screen/search_screen.dart';
 import 'package:martfury/src/view/screen/cart_screen.dart';
@@ -74,7 +75,7 @@ class _HeaderState extends State<Header> {
               children: [
                 Image.asset(
                   'assets/images/logo.png',
-                  height: 32,
+                  height: Dimensions.height50(context),
                   fit: BoxFit.contain,
                 ),
                 Row(
