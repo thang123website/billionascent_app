@@ -37,22 +37,36 @@ class BaseService {
     return headers;
   }
 
+  // Future<dynamic> _handleResponse(http.Response response) async {
+  //   if (response.statusCode == 401) {
+  //     // Handle unauthorized - clear token and redirect to start screen
+  //     await TokenService.deleteToken();
+  //     Get.offAll(() => const StartScreen());
+  //     throw Exception('Unauthorized');
+  //   }
+
+  //   if (response.statusCode >= 200 && response.statusCode < 300) {
+  //     return json.decode(response.body);
+  //   } else {
+  //     final errorBody = json.decode(response.body);
+  //     throw errorBody['error'] ?? 'An error occurred';
+  //   }
+  // }
   Future<dynamic> _handleResponse(http.Response response) async {
     if (response.statusCode == 401) {
-      // Handle unauthorized - clear token and redirect to start screen
-      await TokenService.deleteToken();
-      Get.offAll(() => const StartScreen());
-      throw Exception('Unauthorized');
+      // ...existing code...
     }
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
+      return json.decode(response.body);
+    } else if (response.statusCode == 422) {
+      // Trả về toàn bộ body JSON để UI lấy lỗi chi tiết
       return json.decode(response.body);
     } else {
       final errorBody = json.decode(response.body);
       throw errorBody['error'] ?? 'An error occurred';
     }
   }
-
   Future<dynamic> get(String endpoint) async {
     final headers = await _getHeaders();
 

@@ -7,6 +7,37 @@ import 'package:martfury/src/view/screen/start_screen.dart';
 import 'package:get/get.dart';
 
 class AuthService extends BaseService {
+  Future<Map<String, dynamic>> registerPersonal(Map<String, dynamic> data) async {
+    try {
+      final Map<String, Object> requestData = {};
+      data.forEach((key, value) {
+        if (value != null) {
+          requestData[key] = value;
+        }
+      });
+      final response = await postAuth('/api/v1/register', requestData);
+      await NotificationService.registerDeviceToken();
+      return response;
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to register: $e'};
+    }
+  }
+
+  Future<Map<String, dynamic>> registerOrganization(Map<String, dynamic> data) async {
+    try {
+      final Map<String, Object> requestData = {};
+      data.forEach((key, value) {
+        if (value != null) {
+          requestData[key] = value;
+        }
+      });
+      final response = await postAuth('/api/v1/register', requestData);
+      await NotificationService.registerDeviceToken();
+      return response;
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to register: $e'};
+    }
+  }
   Future<Map<String, dynamic>> login(LoginRequest request) async {
     try {
       final Map<String, Object> requestData = {};

@@ -58,8 +58,13 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
       setState(() {
         _countries = countries;
         _isLoading = false;
+        // Chỉ gán code, không dùng name
         if (_selectedCountry.isEmpty && countries.isNotEmpty) {
-          _selectedCountry = countries.first.name;
+          _selectedCountry = countries.first.code;
+        } else if (_selectedCountry.isNotEmpty &&
+            !countries.any((c) => c.code == _selectedCountry)) {
+          // Nếu code không hợp lệ, gán về code đầu tiên
+          _selectedCountry = countries.isNotEmpty ? countries.first.code : '';
         }
       });
     } catch (e) {
@@ -963,7 +968,7 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
           .toList(),
       onChanged: (value) {
         setState(() {
-          _selectedCountry = value!;
+          _selectedCountry = value ?? '';
         });
       },
       validator: (value) {
