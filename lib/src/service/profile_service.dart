@@ -22,6 +22,12 @@ class ProfileService extends BaseService {
     required String email,
     String? phone,
     String? dob,
+    String? accountType,
+    String? companyName,
+    String? businessTaxCode,
+    String? businessAddress,
+    String? industry,
+    String? registrantAddress,
   }) async {
     try {
       final response = await put('/api/v1/me', {
@@ -29,6 +35,12 @@ class ProfileService extends BaseService {
         'email': email,
         if (phone != null) 'phone': phone,
         if (dob != null) 'dob': dob,
+        if (accountType != null) 'account_type': accountType,
+        if (companyName != null) 'company_name': companyName,
+        if (businessTaxCode != null) 'business_tax_code': businessTaxCode,
+        if (businessAddress != null) 'business_address': businessAddress,
+        if (industry != null) 'industry': industry,
+        if (registrantAddress != null) 'registrant_address': registrantAddress,
       });
 
       return response['data'];

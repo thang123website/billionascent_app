@@ -601,21 +601,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                     ),
-                    _buildMenuItem(
-                      'profile.blog'.tr(),
-                      Icons.article_outlined,
-                      onTap:
-                          (context) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
-                                    url: AppConfig.blogUrl,
-                                    title: 'profile.blog'.tr(),
-                                  ),
-                            ),
-                          ),
-                    ),
+                    // _buildMenuItem(
+                    //   'profile.blog'.tr(),
+                    //   Icons.article_outlined,
+                    //   onTap:
+                    //       (context) => Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder:
+                    //               (context) => WebViewScreen(
+                    //                 url: AppConfig.blogUrl,
+                    //                 title: 'profile.blog'.tr(),
+                    //               ),
+                    //         ),
+                    //       ),
+                    // ),
                     const Divider(height: 32),
                     Padding(
                       padding: const EdgeInsets.only(left: 16, bottom: 8),

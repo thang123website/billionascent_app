@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:martfury/src/service/profile_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:martfury/src/theme/app_fonts.dart';
 import 'package:martfury/src/theme/app_colors.dart';
 
@@ -20,6 +21,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _dobController = TextEditingController();
+  // Các trường bổ sung
+  final _accountTypeController = TextEditingController();
+  final _companyNameController = TextEditingController();
+  final _businessTaxCodeController = TextEditingController();
+  final _businessAddressController = TextEditingController();
+  final _industryController = TextEditingController();
+  final _registrantAddressController = TextEditingController();
   bool _isLoading = false;
   String? _error;
   final ProfileService _profileService = ProfileService();
@@ -27,15 +35,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.profileData['name'] ?? '';
-    _emailController.text = widget.profileData['email'] ?? '';
-    _phoneController.text = widget.profileData['phone'] ?? '';
-    if (widget.profileData['dob'] != null &&
-        widget.profileData['dob'].isNotEmpty) {
+    _nameController.text = widget.profileData['name'] is String ? widget.profileData['name'] : '';
+    _emailController.text = widget.profileData['email'] is String ? widget.profileData['email'] : '';
+    _phoneController.text = widget.profileData['phone'] is String ? widget.profileData['phone'] : '';
+    final accountType = widget.profileData['account_type'];
+    _accountTypeController.text = accountType is String
+        ? accountType
+        : (accountType is Map && accountType['value'] is String ? accountType['value'] : '');
+    _companyNameController.text = widget.profileData['company_name'] is String ? widget.profileData['company_name'] : '';
+    _businessTaxCodeController.text = widget.profileData['business_tax_code'] is String ? widget.profileData['business_tax_code'] : '';
+    _businessAddressController.text = widget.profileData['business_address'] is String ? widget.profileData['business_address'] : '';
+    _industryController.text = widget.profileData['industry'] is String ? widget.profileData['industry'] : '';
+    _registrantAddressController.text = widget.profileData['registrant_address'] is String ? widget.profileData['registrant_address'] : '';
+    if (widget.profileData['dob'] != null && widget.profileData['dob'] is String && widget.profileData['dob'].isNotEmpty) {
       try {
-        final date = DateTime.parse(widget.profileData['dob']);
-        _dobController.text =
-            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+        final date = DateTime.parse(widget.profileData['dob']).toLocal();
+        _dobController.text = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       } catch (e) {
         _dobController.text = widget.profileData['dob'];
       }
@@ -50,9 +65,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _emailController.dispose();
     _phoneController.dispose();
     _dobController.dispose();
+    _accountTypeController.dispose();
+    _companyNameController.dispose();
+    _businessTaxCodeController.dispose();
+    _businessAddressController.dispose();
+    _industryController.dispose();
+    _registrantAddressController.dispose();
     super.dispose();
   }
-
   Future<void> _updateProfile() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -65,20 +85,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final updatedData = await _profileService.updateProfile(
         name: _nameController.text.trim(),
         email: _emailController.text.trim(),
-        phone:
-            _phoneController.text.trim().isNotEmpty
-                ? _phoneController.text.trim()
-                : null,
-        dob:
-            _dobController.text.trim().isNotEmpty
-                ? _dobController.text.trim()
-                : null,
+        phone: _phoneController.text.trim().isNotEmpty ? _phoneController.text.trim() : null,
+        dob: _dobController.text.trim().isNotEmpty ? _dobController.text.trim() : null,
+        accountType: _accountTypeController.text.trim().isNotEmpty ? _accountTypeController.text.trim() : null,
+        companyName: _companyNameController.text.trim().isNotEmpty ? _companyNameController.text.trim() : null,
+        businessTaxCode: _businessTaxCodeController.text.trim().isNotEmpty ? _businessTaxCodeController.text.trim() : null,
+        businessAddress: _businessAddressController.text.trim().isNotEmpty ? _businessAddressController.text.trim() : null,
+        industry: _industryController.text.trim().isNotEmpty ? _industryController.text.trim() : null,
+        registrantAddress: _registrantAddressController.text.trim().isNotEmpty ? _registrantAddressController.text.trim() : null,
       );
-
       if (!mounted) return;
 
       // Include the existing avatar URL in the returned data
       final result = {...updatedData, 'avatar': widget.profileData['avatar']};
+
+      // Show success SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('auth.profile_update_success'.tr()),
+          backgroundColor: Colors.green,
+        ),
+      );
 
       // Return the updated data to the previous screen
       Navigator.pop(context, result);
@@ -222,6 +249,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
               const SizedBox(height: 32),
+              
               Text(
                 'Name',
                 style: kAppTextStyle(
@@ -434,6 +462,104 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
               const SizedBox(height: 32),
+              // Account Type (read-only)
+              Text('auth.account_type_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _accountTypeController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: 'personal/organization',
+                  filled: true,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                  contentPadding: const EdgeInsets.all(16),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Account type cannot be changed after registration (Current: ${_accountTypeController.text.isNotEmpty ? _accountTypeController.text : 'Unknown'})',
+                style: kAppTextStyle(fontSize: 12, color: AppColors.getSecondaryTextColor(context)),
+              ),
+              const SizedBox(height: 24),
+              // Show organization fields only if account type is Organization
+              if (_accountTypeController.text.trim().toLowerCase() == 'organization' || _accountTypeController.text.trim().toLowerCase() == 'tổ chức') ...[
+                Text('auth.company_name_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _companyNameController,
+                  decoration: InputDecoration(
+                    hintText: 'auth.company_name_hint'.tr(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.darkSurface
+                        : Colors.grey[100],
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text('auth.business_tax_code_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _businessTaxCodeController,
+                  decoration: InputDecoration(
+                    hintText: 'auth.business_tax_code_hint'.tr(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.darkSurface
+                        : Colors.grey[100],
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text('auth.business_address_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _businessAddressController,
+                  decoration: InputDecoration(
+                    hintText: 'auth.business_address_hint'.tr(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.darkSurface
+                        : Colors.grey[100],
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text('auth.industry_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _industryController,
+                  decoration: InputDecoration(
+                    hintText: 'auth.industry_hint'.tr(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.darkSurface
+                        : Colors.grey[100],
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text('auth.registrant_address_label'.tr(), style: kAppTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.getPrimaryTextColor(context))),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _registrantAddressController,
+                  decoration: InputDecoration(
+                    hintText: 'auth.registrant_address_hint'.tr(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.darkSurface
+                        : Colors.grey[100],
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                ),
+                const SizedBox(height: 24),
+    
+              ],
               SizedBox(
                 width: double.infinity,
                 height: 56,

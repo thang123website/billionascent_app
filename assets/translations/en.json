@@ -30,7 +30,19 @@
     "password": "Password",
     "confirm_password": "Confirm Password",
     "please_enter_your_email": "Please enter your email",
-    "please_enter_your_password": "Please enter your password"
+    "please_enter_your_password": "Please enter your password",
+    "profile_update_success": "Profile updated successfully",
+    "company_name_label": "Company Name",
+    "company_name_hint": "Enter company name",
+    "business_tax_code_label": "Business Tax Code",
+    "business_tax_code_hint": "Enter tax code",
+    "business_address_label": "Business Address",
+    "business_address_hint": "Enter business address",
+    "industry_label": "Industry",
+    "industry_hint": "Enter industry",
+    "registrant_address_label": "Registrant Address",
+    "registrant_address_hint": "Enter registrant address",
+    "account_type_label": "Account Type"
   },
   "common": {
     "submit": "Submit",
