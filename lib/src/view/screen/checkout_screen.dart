@@ -121,78 +121,89 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final token = await TokenService.getToken();
     if (!mounted) return;
 
-    final controller =
-        WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setBackgroundColor(Colors.white)
-          // Clear cookies and cache
-          ..clearCache()
-          ..clearLocalStorage()
-          // Add user agent to help with compatibility
-          ..setUserAgent('BillionascentApp/1.0 (iOS)')
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onPageStarted: (String url) {
-                debugPrint('WebView started loading: $url');
-                if (mounted) {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                }
-              },
-              onPageFinished: (String url) {
-                debugPrint('WebView finished loading: $url');
-                if (mounted) {
-                  setState(() {
-                    _isLoading = false;
-                  });
-                }
-              },
-              onNavigationRequest: (NavigationRequest request) {
-                debugPrint('WebView navigation request: ${request.url}');
-                // Check if URL matches base URL
-                if (request.url == AppConfig.apiBaseUrl ||
-                    request.url == '${AppConfig.apiBaseUrl}/' ||
-                    request.url.startsWith(
-                      '${AppConfig.apiBaseUrl}/thank-you',
-                    )) {
-                  _handleCheckoutComplete();
-                  return NavigationDecision.prevent;
-                }
-                // Check if URL is cart page and redirect to cart screen
-                if (request.url.startsWith('${AppConfig.apiBaseUrl}/cart')) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CartScreen()),
-                  );
-                  // Navigator.of(context).pushReplacementNamed('/cart');
-                  return NavigationDecision.prevent;
-                }
-                return NavigationDecision.navigate;
-              },
-              onWebResourceError: (WebResourceError error) {
-                debugPrint('WebView error: ${error.description}');
-                debugPrint('Error code: ${error.errorCode}');
-                debugPrint('Error type: ${error.errorType}');
-                debugPrint('Failed URL: ${error.url}');
-                
-                // Only show dialog for main frame errors (not sub-resources like images, ads, etc.)
-                if (mounted && error.errorType == WebResourceErrorType.hostLookup ||
-                    error.errorType == WebResourceErrorType.timeout ||
-                    error.errorType == WebResourceErrorType.connect ||
-                    error.errorType == WebResourceErrorType.authentication) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    _showErrorDialog(error.description, error.url);
-                  });
-                }
-              },
-            ),
-          );
+    final controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.white)
+      // Clear cookies and cache
+      ..clearCache()
+      ..clearLocalStorage()
+      // Add user agent to help with compatibility
+      ..setUserAgent('BillionascentApp/1.0 (iOS)')
+      // Thêm JavaScript channel để nhận token mới từ web
+      ..addJavaScriptChannel(
+        'LoginChannel',
+        onMessageReceived: (JavaScriptMessage message) async {
+          final newToken = message.message;
+          debugPrint('Received new token from web: $newToken');
+          await TokenService.saveToken(newToken);
+          // Reload lại app: pop về màn hình chính và reload user info
+          if (mounted) {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            // TODO: Gọi hàm reload user info tại màn hình chính nếu có
+          }
+        },
+      )
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (String url) {
+            debugPrint('WebView started loading: $url');
+            if (mounted) {
+              setState(() {
+                _isLoading = true;
+              });
+            }
+          },
+          onPageFinished: (String url) {
+            debugPrint('WebView finished loading: $url');
+            if (mounted) {
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            debugPrint('WebView navigation request: ${request.url}');
+            // Check if URL matches base URL
+            if (request.url == AppConfig.apiBaseUrl ||
+                request.url == '${AppConfig.apiBaseUrl}/' ||
+                request.url.startsWith(
+                  '${AppConfig.apiBaseUrl}/thank-you',
+                )) {
+              _handleCheckoutComplete();
+              return NavigationDecision.prevent;
+            }
+            // Check if URL is cart page and redirect to cart screen
+            if (request.url.startsWith('${AppConfig.apiBaseUrl}/cart')) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+              // Navigator.of(context).pushReplacementNamed('/cart');
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('WebView error: ${error.description}');
+            debugPrint('Error code: ${error.errorCode}');
+            debugPrint('Error type: ${error.errorType}');
+            debugPrint('Failed URL: ${error.url}');
+            // Only show dialog for main frame errors (not sub-resources like images, ads, etc.)
+            if (mounted && error.errorType == WebResourceErrorType.hostLookup ||
+                error.errorType == WebResourceErrorType.timeout ||
+                error.errorType == WebResourceErrorType.connect ||
+                error.errorType == WebResourceErrorType.authentication) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _showErrorDialog(error.description, error.url);
+              });
+            }
+          },
+        ),
+      );
 
     // Load the checkout URL
     final checkoutUrl = '${AppConfig.apiBaseUrl}/api/v1/ecommerce/checkout/cart/${widget.cartId}';
     debugPrint('Loading checkout URL: $checkoutUrl');
-    
     controller.loadRequest(
       Uri.parse(checkoutUrl),
       headers: {'Authorization': 'Bearer $token','X-API-KEY': AppConfig.apiKey,},

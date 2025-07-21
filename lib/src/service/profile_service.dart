@@ -27,7 +27,7 @@ class ProfileService extends BaseService {
     String? businessTaxCode,
     String? businessAddress,
     String? industry,
-    String? registrantAddress,
+    String? registrantAddress, 
   }) async {
     try {
       final response = await put('/api/v1/me', {
