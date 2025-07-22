@@ -3,6 +3,7 @@ import 'package:martfury/src/theme/app_fonts.dart';
 import 'package:martfury/src/theme/app_colors.dart';
 import 'package:martfury/src/service/product_service.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:martfury/src/utils/dimensions.dart';
 
 class FilterScreen extends StatefulWidget {
   final int? categoryId;
@@ -174,6 +175,15 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   items: [
                     DropdownMenuItem<String>(
+                      value: '',
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          Icon(Icons.clear, size: Dimensions.iconSize20(context), color: AppColors.primary),
+                        ],
+                      ),
+                    ),
+                    DropdownMenuItem<String>(
                       value: null,
                       child: Text(
                         'All Categories',
@@ -183,38 +193,22 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-                    ...(_filterData['categories'] as List<dynamic>).map((
-                      category,
-                    ) {
-                      final String name =
-                          category['name']?.toString() ?? 'Unnamed Category';
-                      final String id = category['id']?.toString() ?? '';
-                      if (id.isEmpty) return null;
-
-                      return DropdownMenuItem<String>(
-                        value: id,
-                        child: Text(
-                          name,
-                          style: kAppTextStyle(
-                            fontSize: 14,
-                            color: AppColors.getPrimaryTextColor(context),
-                          ),
-                        ),
-                      );
-                    }).whereType<DropdownMenuItem<String>>(),
+                    ..._buildCategoryDropdownItems(_filterData['categories'] as List<dynamic>),
                   ],
+
                   onChanged: (String? value) {
                     setState(() {
                       if (value == null) {
                         _selectedFilters.remove('categories');
+                        _selectedCategoryId = null;
+                      } else if (value == '') {
+                        _selectedFilters.remove('categories');
+                        _selectedCategoryId = null;
                       } else {
                         _selectedFilters['categories'] = [value];
+                        _selectedCategoryId = int.tryParse(value);
                       }
                     });
-
-                    _selectedCategoryId =
-                        value != null ? int.parse(value) : null;
-
                     _fetchFilterData();
                   },
                 ),
@@ -811,5 +805,41 @@ class _FilterScreenState extends State<FilterScreen> {
         ),
       ),
     );
+  }
+  List<DropdownMenuItem<String>> _buildCategoryDropdownItems(List<dynamic> categories) {
+    List<DropdownMenuItem<String>> items = [];
+    final Map<dynamic, List<dynamic>> childrenMap = {};
+    for (var cat in categories) {
+      final parentId = cat['parent_id'];
+      if (!childrenMap.containsKey(parentId)) {
+        childrenMap[parentId] = [];
+      }
+      childrenMap[parentId]!.add(cat);
+    }
+
+    void addItems(dynamic parentId, int depth) {
+      final children = childrenMap[parentId] ?? [];
+      for (var cat in children) {
+        final String id = cat['id']?.toString() ?? '';
+        final String name = cat['name']?.toString() ?? 'Unnamed Category';
+        if (id.isEmpty) continue;
+        items.add(DropdownMenuItem<String>(
+          value: id,
+          child: Padding(
+            padding: EdgeInsets.only(left: 24.0 * depth),
+            child: Text(
+              name,
+              style: kAppTextStyle(
+                fontSize: 14,
+                color: AppColors.getPrimaryTextColor(context),
+              ),
+            ),
+          ),
+        ));
+        addItems(cat['id'], depth + 1);
+      }
+    }
+    addItems(0, 0);
+    return items;
   }
 }

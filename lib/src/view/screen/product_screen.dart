@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
@@ -8,6 +9,7 @@ import 'package:martfury/src/service/product_service.dart';
 import 'package:martfury/src/service/cart_service.dart';
 import 'package:martfury/src/theme/app_fonts.dart';
 import 'package:martfury/src/theme/app_colors.dart';
+import 'package:martfury/src/utils/dimensions.dart';
 import 'package:martfury/src/view/screen/filter_screen.dart';
 import 'package:martfury/src/view/screen/product_detail_screen.dart';
 import 'package:martfury/src/view/screen/main_screen.dart';
@@ -42,8 +44,8 @@ class _ProductScreenState extends State<ProductScreen> {
     'date_asc': 'explorer.date_asc'.tr(),
     'name_asc': 'explorer.name_asc'.tr(),
     'name_desc': 'explorer.name_desc'.tr(),
-    'rating_asc': 'explorer.rating_asc'.tr(),
-    'rating_desc': 'explorer.rating_desc'.tr(),
+    // 'rating_asc': 'explorer.rating_asc'.tr(),
+    // 'rating_desc': 'explorer.rating_desc'.tr(),
   };
   bool _isGridView = true;
   String _sortBy = 'default_sorting';
@@ -417,35 +419,47 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                         child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
+                          child: DropdownButton2<String>(
                             value: _sortBy,
                             isExpanded: true,
                             isDense: true,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 20,
-                              color: Colors.grey.shade600,
+                            dropdownStyleData: DropdownStyleData(
+                              width: Dimensions.width100(context) * 2.2,
+                              offset: Offset(
+                                (Dimensions.width100(context) - Dimensions.width100(context) * 2.2) / 2,
+                                0,
+                              ), // căn giữa menu với phần tử cha
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white, // hoặc màu bạn muốn
+                              ),
                             ),
-                            items:
-                                _sortOptions.entries.map((entry) {
-                                  return DropdownMenuItem<String>(
-                                    value: entry.key,
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Sort by:\n${entry.value}',
-                                        style: kAppTextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey.shade700,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.0,
-                                        ),
-                                        maxLines: 2,
-                                        softWrap: true,
-                                      ),
+                            iconStyleData: IconStyleData(
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 20,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                            items: _sortOptions.entries.map((entry) {
+                              return DropdownMenuItem<String>(
+                                value: entry.key,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Sort by: ${entry.value}',
+                                    style: kAppTextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey.shade700,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.0,
                                     ),
-                                  );
-                                }).toList(),
+                                    maxLines: 1,
+                                    softWrap: true,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                             onChanged: (String? newValue) {
                               if (newValue != null) {
                                 setState(() {
@@ -455,21 +469,26 @@ class _ProductScreenState extends State<ProductScreen> {
                               }
                             },
                             selectedItemBuilder: (BuildContext context) {
+                              // Only show the currently selected value
                               return _sortOptions.entries.map((entry) {
-                                return Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Sort by:\n${entry.value}',
-                                    style: kAppTextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey.shade700,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.0,
+                                if (entry.key == _sortBy) {
+                                  return Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Sort by: ${entry.value}',
+                                      style: kAppTextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.0,
+                                      ),
+                                      maxLines: 1,
+                                      softWrap: true,
                                     ),
-                                    maxLines: 2,
-                                    softWrap: true,
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
                               }).toList();
                             },
                           ),
